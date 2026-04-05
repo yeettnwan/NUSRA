@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUSRA Help Device</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    background: linear-gradient(135deg, #9333ea, #3b82f6, #22c55e);
+    color: white;
+}
+
+/* HAMBURGER */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 1000;
+}
+.menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    padding-top: 80px;
+    transition: 0.4s;
+}
+.menu a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+}
+.menu.active { right: 0; }
+
+/* LOGO */
+.logo {
+    display: block;
+    margin: 60px auto 20px;
+    width: 120px;
+}
+
+/* TITLE */
+h1 {
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+/* DEVICE BUTTON */
+.devices {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.devices button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* STEPS */
+.steps {
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.step {
+    background: rgba(255,255,255,0.15);
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* DETAIL BOX */
+.detail {
+    display: none;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+</div>
+
+<!-- LOGO -->
+<img src="logo.png" class="logo">
+
+<h1>PANDUAN PERANTI ANDA 🔧</h1>
+<p class="center">Pilih jenis device dahulu</p>
+
+<!-- DEVICE SELECT -->
+<div class="devices">
+    <button onclick="selectDevice('phone')">📱 Phone</button>
+    <button onclick="selectDevice('laptop')">💻 Laptop</button>
+    <button onclick="selectDevice('tablet')">📲 Tablet</button>
+</div>
+
+<!-- STEPS -->
+<div class="steps" id="steps"></div>
+
+<script>
+
+/* MENU */
+document.getElementById("menuBtn").onclick = () => {
+    document.getElementById("menu").classList.toggle("active");
+}
+
+/* DATA SYSTEM */
+const data = {
+    phone: [
+        {title: "Bateri cepat habis",
+         detail: "Kurangkan brightness, tutup app background, pertimbangkan tukar bateri."},
+
+        {title: "Skrin retak",
+         detail: "Gunakan screen protector sementara dan elakkan tekanan."},
+
+        {title: "Phone panas",
+         detail: "Matikan phone dan elakkan penggunaan ketika charging."}
+    ],
+
+    laptop: [
+        {title: "Laptop slow",
+         detail: "Buang file tidak perlu, tambah RAM jika perlu."},
+
+        {title: "Overheat",
+         detail: "Gunakan cooling pad dan bersihkan kipas."}
+    ],
+
+    tablet: [
+        {title: "Tablet lag",
+         detail: "Restart dan tutup aplikasi background."},
+
+        {title: "Touch tak respon",
+         detail: "Bersihkan screen dan restart device."}
+    ]
+};
+
+/* SHOW STEPS */
+function selectDevice(type) {
+    const stepsDiv = document.getElementById("steps");
+    stepsDiv.innerHTML = "";
+
+    data[type].forEach((item, index) => {
+        const step = document.createElement("div");
+        step.className = "step";
+        step.innerHTML = `
+            <h3>${item.title}</h3>
+            <div class="detail">${item.detail}</div>
+        `;
+
+        step.onclick = () => {
+            const detail = step.querySelector(".detail");
+            detail.style.display = detail.style.display === "block" ? "none" : "block";
+        };
+
+        stepsDiv.appendChild(step);
+    });
+}
+
+</script>
+
+</body>
+</html>
